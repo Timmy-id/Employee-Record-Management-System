@@ -1,0 +1,24 @@
+[project]
+name = "employee-record-management-system"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Oluwatimilehin Idowu",email = "oluwatimilehin.id@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pydantic (>=2.10.6,<3.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+start="employee_record_management_system.main:main"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"
+
