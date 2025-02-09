@@ -32,8 +32,11 @@ def main():
             print(emp)
 
     if args.search:
-        data = args.search
-        search_employee(data)
+        try:
+            data = args.search
+            search_employee(data)
+        except ValidationError as e:
+            print(e.errors())
 
     if not any(vars(args).values()):
         parser.print_help()

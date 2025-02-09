@@ -1,5 +1,6 @@
 import os
 import json
+from pydantic import ValidationError
 from .models import Employee
 
 FILE_STORAGE = 'employees.json'
@@ -21,8 +22,12 @@ def add_employee(data: Employee):
         
         check_id = [emp['id'] for emp in file_data]
 
-        if data['id'] in check_id:
-            print('Employee ID already exist')
+        try:
+            if data['id'] in check_id:
+                print('Employee ID already exist')
+                return
+        except ValidationError as e:
+            print(e.errors())
             return
 
         new_employee = Employee(**data)
@@ -63,10 +68,10 @@ def search_employee(id: int):
             return
 
         employees_data = [Employee(**emp) for emp in file_data]
-        for employer in employees_data:
-            if employer.id == id:
-                print(employer.model_dump())
-                return
+        for employee in employees_data:
+            if employee.id == id:
+                print(employee.model_dump())
+                return employee.model_dump()
         print(f'Employee with ID {id} not found')
         return
             
