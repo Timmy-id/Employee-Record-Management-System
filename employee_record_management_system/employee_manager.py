@@ -29,7 +29,7 @@ def add_employee(data: Employee):
         employee_data = [Employee(**emp) for emp in file_data]
         employee_data.append(new_employee.model_dump())
         with open(FILE_STORAGE, 'w') as f:
-            json.dump([emp.dict() for emp in employee_data], f, indent=4)
+            json.dump([emp.model_dump() for emp in employee_data], f, indent=4)
         
         return new_employee.model_dump()
 
@@ -65,7 +65,7 @@ def search_employee(id: int):
         employees_data = [Employee(**emp) for emp in file_data]
         for employer in employees_data:
             if employer.id == id:
-                print(employer.dict())
+                print(employer.model_dump())
                 return
         print(f'Employee with ID {id} not found')
         return
