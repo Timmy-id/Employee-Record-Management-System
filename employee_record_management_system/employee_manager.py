@@ -14,10 +14,10 @@ def add_employee(data: Employee):
         if len(file_data) == 0:
             new_employee = Employee(**data)
             employee_data = [Employee(**emp) for emp in file_data]
-            employee_data.append(new_employee.dict())
+            employee_data.append(new_employee.model_dump())
             with open(FILE_STORAGE, 'w') as f:
-                json.dump([new_employee.dict()], f, indent=4)
-            return new_employee.dict()
+                json.dump([new_employee.model_dump()], f, indent=4)
+            return new_employee.model_dump()
         
         check_id = [emp['id'] for emp in file_data]
 
@@ -27,11 +27,11 @@ def add_employee(data: Employee):
 
         new_employee = Employee(**data)
         employee_data = [Employee(**emp) for emp in file_data]
-        employee_data.append(new_employee)
+        employee_data.append(new_employee.model_dump())
         with open(FILE_STORAGE, 'w') as f:
             json.dump([emp.dict() for emp in employee_data], f, indent=4)
         
-        return new_employee.dict()
+        return new_employee.model_dump()
 
 def list_employees():
     if not os.path.isfile(FILE_STORAGE):

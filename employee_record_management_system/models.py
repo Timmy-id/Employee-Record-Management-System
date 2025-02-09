@@ -1,4 +1,4 @@
-from pydantic import BaseModel, conint, constr, confloat, Field
+from pydantic import BaseModel, Field, ConfigDict
 from enum import Enum
 
 
@@ -11,12 +11,11 @@ class RoleEnum(str, Enum):
 
 
 class Employee(BaseModel):
-    id: int = Field(gt=0)
-    name: str = Field(min_length=2)
-    age: int = Field(ge=18, le=65)
+    id: int = Field(..., gt=0)
+    name: str = Field(..., min_length=2)
+    age: int = Field(..., ge=18, le=65)
     department: str
     role: RoleEnum
-    salary: float = Field(gt=0)
+    salary: float = Field(..., gt=0)
 
-    class Config:
-        str_strip_whitespace = True
+    model_config = ConfigDict(str_strip_whitespace = True)
